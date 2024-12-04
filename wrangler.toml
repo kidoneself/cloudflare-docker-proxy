@@ -13,17 +13,18 @@ CUSTOM_DOMAIN = "naspt.de"
 MODE = "debug"
 TARGET_UPSTREAM = "https://registry-1.docker.io"
 
+
 [env.production]
 name = "cloudflare-docker-proxy"
-# routes = [
-#   { pattern = "docker.naspt.de", custom_domain = true },
-#   { pattern = "quay.naspt.de", custom_domain = true },
-#   { pattern = "gcr.naspt.de", custom_domain = true },
-#   { pattern = "k8s-gcr.naspt.de", custom_domain = true },
-#   { pattern = "k8s.naspt.de", custom_domain = true },
-#   { pattern = "ghcr.naspt.de", custom_domain = true },
-#   { pattern = "cloudsmith.naspt.de", custom_domain = true },
-# ]
+ routes = [
+   { pattern = "docker.naspt.de", custom_domain = true },
+   { pattern = "quay.naspt.de", custom_domain = true },
+   { pattern = "gcr.naspt.de", custom_domain = true },
+   { pattern = "k8s-gcr.naspt.de", custom_domain = true },
+   { pattern = "k8s.naspt.de", custom_domain = true },
+   { pattern = "ghcr.naspt.de", custom_domain = true },
+   { pattern = "cloudsmith.naspt.de", custom_domain = true },
+ ]
 
 [env.production.vars]
 MODE = "production"
