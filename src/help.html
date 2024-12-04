@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dockerhub镜像加速说明</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://cdn.jsdelivr.net/gh/fireinrain/picx-images-hosting@master/20240608/wp8114669-docker-wallpapers.5h6dvj56isg0.webp'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            color: #007aff;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            position: relative;
+        }
+        pre::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 12px;
+            height: 12px;
+            background: #ff5f56;
+            border-radius: 50%;
+            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+        }
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 0.875em;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        pre:hover .copy-button {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <center><h1>镜像加速说明</h1></center>
+    <h3>镜像地址（NAS里直接添加，通常就正常使用了）</h3>
+    <pre><code>
+https://docker.naspt.de</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+    <h3>用法①：客户端 手动设置【注册表镜像】，然后【正常命令】拉取加速镜像</h3>
+    <pre><code>
+sudo tee /etc/docker/daemon.json &lt;&lt;EOF
+{
+    "registry-mirrors": ["https://docker.naspt.de"]
+}
+EOF</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+    <pre><code>
+sudo systemctl daemon-reload #重载 systemd 管理守护进程配置文件</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+    <pre><code>
+sudo systemctl restart docker #重启 Docker 服务</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+    <h3>用法②：临时的拉取方法（不用修改或添加镜像源）</h3>
+    <h4>原拉取镜像命令</h4>
+    <pre><code>
+docker pull library/alpine:latest</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+    <h4>加速拉取镜像命令</h4>
+    <pre><code>
+docker pull docker.naspt.de/library/alpine:latest</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+</div>
+<script>
+    function copyCode(button) {
+        const code = button.previousSibling;
+        const textArea = document.createElement('textarea');
+        textArea.value = code.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        button.textContent = '已复制';
+        setTimeout(() => {
+            button.textContent = '复制代码';
+        }, 2000);
+    }
+</script>
+</body>
+</html>
