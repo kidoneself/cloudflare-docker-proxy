@@ -7,7 +7,7 @@ port = 8787
 local_protocol = "http"
 
 [env.vars]
-CUSTOM_DOMAIN = "naspt.de"
+CUSTOM_DOMAIN = "docker.naspt.de"
 
 [env.dev.vars]
 MODE = "debug"
